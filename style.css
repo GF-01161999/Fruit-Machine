@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#container { 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    height: 100vh;
+}
+
+button { 
+    border: none;
+}
+
+.Start {
+    display: grid;
+    width: 50%;
+    box-sizing: border-box;
+} 
+
+.SlotImages {
+    flex-direction: row;
+    width: 50%;
+}
+
+#status {
+    display: none;
+}
+
+#user-message {
+    display: none;
+}  
+
+.SlotImages{
+    align-self: center;
+}  
+
+#start {
+    align-self: center;
+    height: 100px;
+    width: 100px;
+}

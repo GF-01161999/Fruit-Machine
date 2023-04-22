@@ -10,10 +10,9 @@
 </head>
 <body>
   
-    <div id="user-message">...</div>
-         <!-- FAIL OR WIN DISPLAY -->
+    <div id="user-message" display="none"></div>
     <div class = "picture">
-        <img id = "status" src="images/Fail.png" alt="Fail" width= 200>
+        <img id = "win-lose-status" src="images/Fail.png" alt="Fail" width= 200>
     </div>
             <!-- PLAYER BALANCE -->
     <div id="balance-container">
@@ -23,12 +22,12 @@
         <p id="bet-amount">1</p>
     </div>
 
-    <div id="container">
+    <div id="spinner-container">
         <!-- SLOTS -->
         <div class = "SlotImages">
-            <img id = "r1" src="images/CasinoPokerSlot.png" alt="Slot1" width = 100 >
-            <img id = "r2" src="images/CasinoPokerSlot.png" alt="Slot2" width = 100 >
-            <img id = "r3" src="images/CasinoPokerSlot.png" alt="Slot3" width = 100 >
+            <img id = "slot-reel1" src="images/CasinoPokerSlot.png" alt="Slot1" width = 100 >
+            <img id = "slot-reel2" src="images/CasinoPokerSlot.png" alt="Slot2" width = 100 >
+            <img id = "slot-reel3" src="images/CasinoPokerSlot.png" alt="Slot3" width = 100 >
         </div>
         <!-- START / SPIN -->
             <img id = "start" src="images/StartButton.png" alt="StartButton">
@@ -39,7 +38,6 @@
         <div>
             <button id="decrease">- Bet</button>
         </div>
-       
     </div>
 
 </body>

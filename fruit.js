@@ -1,118 +1,102 @@
-//Mr Seagull Wrote this - IT IS AWESOMMMMMMMEEEEEEEEEEE
-
 const spinBtn = document.getElementById("start");
 const balanceDisplay = document.getElementById("balanceDisplay");
-const r1 = document.getElementById("r1");
-const r2 = document.getElementById("r2"); 
-const r3 = document.getElementById("r3");
 const userMsg = document.getElementById("user-message");
-let status = document.getElementById("status");
-let betBal = document.getElementById("bet-amount");
-let incBet = document.getElementById("increase");
-let decBet = document.getElementById("decrease");
+const reels = [document.getElementById("slot-reel1"), document.getElementById("slot-reel2"), document.getElementById("slot-reel3")];
+const winLoseStatus = document.getElementById("win-lose-status");
+const betBalance = document.getElementById("bet-amount");
+const increaseBetBtn = document.getElementById("increase");
+const decreaseBetBtn = document.getElementById("decrease");
 
 
-//Set balance to 500
+//Set default balance to 500
 let balance = 500;
 let bet = 1;
 
 // Increase bet by one token
-const increaseBet = () =>{
+const increaseBet = () => {
     if(bet < 100){
         bet += 1;
-        betBal.textContent = bet
+        betBalance.textContent = bet;
     } else {
-        userMsg.textContent = "You may not bet any more!" 
+        displayMessage("You may not bet any more tokens!");
     }
 };
 
-incBet.addEventListener("click", () =>{
-    increaseBet();
-})
+increaseBetBtn.addEventListener("click", increaseBet);
 
 // Decrease bet by 1 token - if bet = 1, then we cannot decrement any lower. Otherwise, it is okay.
-const decreaseBet = () =>{
+const decreaseBet = () => {
     if(bet == 1){
-        userMsg.textContent = "You may not decrease your bet any further!"
+        displayMessage("You may not decrease your bet any further!");
     } else {
         bet -= 1;
-        betBal.textContent = bet
+        betBalance.textContent = bet;
     }
 }; 
 
-decBet.addEventListener("click", () => { 
-    decreaseBet();
-})
+decreaseBetBtn.addEventListener("click", decreaseBet);
 
-function loser(){
-    status.style.display = "flex"
-    status.src = "images/Fail.png"
+function handleLose(){
+    winLoseStatus.style.display = "flex";
+    winLoseStatus.src = "images/Fail.png";
 }
 
-function winner(){
-    console.log(balance)
-    status.style.display = "flex"
-    if (r1.getAttribute("src") == "images/Cherry.png") {
-        balance += bet * 2
-    } else if(r1.getAttribute("src") == "images/Grapes.png"){
-        balance += bet * 2
-    } else if(r1.getAttribute("src") == "images/Lemon.png"){
-        balance += bet * 3
-    } else if(r1.getAttribute("src") == "images/Orange.png"){
-        balance += bet * 6
-    } else if(r1.getAttribute("src") == "images/Strawberry.png"){
-        balance += bet * 5
-    } else if(r1.getAttribute("src") == "images/Watermelon.png"){
-        balance += bet * 4
-    }
-    status.src = "images/BigWin.png"
-    console.log(balance)
+const payoutMultipliers = {
+    "Cherry": 2,
+    "Grapes": 2,
+    "Lemon": 3,
+    "Orange": 6,
+    "Strawberry": 5,
+    "Watermelon": 4
+};
+
+function handleWin(){
+    const payoutAmount = payoutMultipliers[reels[0].getAttribute("src").replace("images/", "").replace(".png", "")] * bet;
+    console.log(payoutAmount);
+    console.log("balance before payout is: ", balance);
+    balance += payoutAmount;
+    console.log("balance after payout is: ", balance);
+
+
+    winLoseStatus.style.display = "flex";
+    winLoseStatus.src = "images/BigWin.png";
 }
 
 function spin(){
+    if((balance - bet) < 0) {
+        displayMessage("You do not have a sufficient balance to place this bet!");
+        return
+    }
+
     balance -= bet
-    //alert(bet)
-    let final = []
-    final.push(spinReel(r1))
-    final.push(spinReel(r2))
-    final.push(spinReel(r3))
-    let winning = final[0] == final[1] && final[0] == final[2]
-    //Check if the reels match up by checking 1 and 0 & 0 and 2
-        if(winning){
-            winner()
-        } else {
-            loser()
-        }
+    const spunReels = [spinReel(reels[0]), spinReel(reels[1]), spinReel(reels[2])];
+    const winning = spunReels[0] == spunReels[1] && spunReels[0] == spunReels[2];
+
+    if(winning){
+        handleWin();
+    } else {
+        handleLose();
+    }
     updateBalance()
 }    
 
 function spinReel(reel){
-    let i = Math.floor(Math.random()*6)
-    if (i == 0){
-        reel.src = "images/Cherry.png"
-    }
-    if (i == 1){
-        reel.src = "images/Grapes.png"
-    }
-    if (i == 2){
-        reel.src = "images/Lemon.png"
-    }
-    if (i == 3){
-        reel.src = "images/Orange.png"
-    }
-    if (i == 4){
-        reel.src = "images/Strawberry.png"
-    }
-    if (i == 5){
-        reel.src = "images/Watermelon.png"
-    }
-    return i
+    const symbols = ["Cherry", "Grapes", "Lemon", "Orange", "Strawberry", "Watermelon"];
+    const i = Math.floor(Math.random() * symbols.length);
+
+    reel.src = "images/" + symbols[i] + ".png";
+    return symbols[i];
 }
 
-const updateBalance = () => {
-    balanceDisplay.innerHTML = balance
-};
+function updateBalance() {
+    balanceDisplay.innerHTML = balance;
+}
 
-spinBtn.addEventListener("click", () => {
-    spin();
-});
+function displayMessage(msg) {
+    userMsg.textContent = msg;
+    userMsg.style.display = "inline-block";
+
+    setTimeout(() => userMsg.style.display = "none", 3000)
+}
+
+spinBtn.addEventListener("click", spin);

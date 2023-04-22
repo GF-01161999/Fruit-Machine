@@ -22,11 +22,9 @@ const increaseBet = () => {
     }
 };
 
-increaseBetBtn.addEventListener("click", increaseBet);
-
 // Decrease bet by 1 token - if bet = 1, then we cannot decrement any lower. Otherwise, it is okay.
 const decreaseBet = () => {
-    if(bet == 1){
+    if(bet === 1){
         displayMessage("You may not decrease your bet any further!");
     } else {
         bet -= 1;
@@ -34,11 +32,10 @@ const decreaseBet = () => {
     }
 }; 
 
-decreaseBetBtn.addEventListener("click", decreaseBet);
-
 function handleLose(){
     winLoseStatus.style.display = "flex";
     winLoseStatus.src = "images/Fail.png";
+    hideWinLoseStatus();
 }
 
 const payoutMultipliers = {
@@ -56,6 +53,8 @@ function handleWin(){
 
     winLoseStatus.style.display = "flex";
     winLoseStatus.src = "images/BigWin.png";
+
+    hideWinLoseStatus();
 }
 
 function spin(){
@@ -95,4 +94,8 @@ function displayMessage(msg) {
     setTimeout(() => userMsg.style.display = "none", 3000)
 }
 
+const hideWinLoseStatus = () => setTimeout( () => winLoseStatus.style.display = "none", 3000);
+
+decreaseBetBtn.addEventListener("click", decreaseBet);
+increaseBetBtn.addEventListener("click", increaseBet);
 spinBtn.addEventListener("click", spin);

@@ -1,45 +1,94 @@
+/* Set background color of body */
 body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-#container { 
+    background-color: #252525;
+  }
+  
+  /* Style the spinner container */
+  #spinner-container {
+    position: relative;
+    margin: auto;
+    width: 80%;
+    height: 400px;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    height: 100vh;
-}
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  /* Style the slots images */
+  .SlotImages img {
+    display: inline-block;
+    margin: 0 20px;
+    padding: 10px;
+    background-color: white;
+    border: 2px solid #FFC107;
+    border-radius: 10px;
+  }
+  
+  /* Style the start button */
+  #start {
+    position: relative;
+    top: 45%;
+    left: 44%;
+    cursor: pointer;
+    height: 200px;
+    width: 200px;
+    margin-left: 60px;
+  }
 
-button { 
+  
+  /* Style the increase and decrease buttons */
+  #increase, #decrease {
+    background-color: #FFC107;
+    color: white;
+    font-size: 1.2rem;
+    padding: 10px 20px;
     border: none;
-}
-
-.Start {
-    display: grid;
-    width: 50%;
-    box-sizing: border-box;
-} 
-
-.SlotImages {
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  #increase:hover, #decrease:hover {
+    background-color: #FFA000;
+  }
+  
+  /* Style the balance container */
+  #balance-container {
+    display: flex;
     flex-direction: row;
-    width: 50%;
-}
-
-#status {
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px auto;
+    width: 60%;
+    color: white;
+    font-size: 1.5rem;
+  }
+  
+  /* Style the balance display */
+  #balanceDisplay {
+    font-size: 2rem;
+    color: #FFC107;
+  }
+  
+  /* Style the win-lose status image */
+  #win-lose-status {
+    position: absolute;
+    top: 40%;
+    left: 10%;
     display: none;
-}
-
-#user-message {
-    display: none;
-}  
-
-.SlotImages{
-    align-self: center;
-}  
-
-#start {
-    align-self: center;
-    height: 100px;
-    width: 100px;
-}
+  }
+  
+  /* Style the user message container */
+  #user-message {
+    position: absolute;
+    top: 60%;
+    left: 10%;
+    width: 80%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #252525;
+  }

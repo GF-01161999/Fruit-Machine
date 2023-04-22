@@ -52,11 +52,7 @@ const payoutMultipliers = {
 
 function handleWin(){
     const payoutAmount = payoutMultipliers[reels[0].getAttribute("src").replace("images/", "").replace(".png", "")] * bet;
-    console.log(payoutAmount);
-    console.log("balance before payout is: ", balance);
     balance += payoutAmount;
-    console.log("balance after payout is: ", balance);
-
 
     winLoseStatus.style.display = "flex";
     winLoseStatus.src = "images/BigWin.png";

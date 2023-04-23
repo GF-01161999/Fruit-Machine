@@ -7,7 +7,6 @@ const betBalance = document.getElementById("bet-amount");
 const increaseBetBtn = document.getElementById("increase");
 const decreaseBetBtn = document.getElementById("decrease");
 
-
 //Set default balance to 500
 let balance = 500;
 let bet = 1;
@@ -22,7 +21,7 @@ const increaseBet = () => {
     }
 };
 
-// Decrease bet by 1 token - if bet = 1, then we cannot decrement any lower. Otherwise, it is okay.
+// Decrease bet by 1 token - if bet = 1, then we cannot decrement any lower. Otherwise, it is ok.
 const decreaseBet = () => {
     if(bet === 1){
         displayMessage("You may not decrease your bet any further!");
@@ -32,7 +31,7 @@ const decreaseBet = () => {
     }
 }; 
 
-function handleLose(){
+function handleLose() {
     winLoseStatus.style.display = "flex";
     winLoseStatus.src = "images/Fail.png";
     hideWinLoseStatus();
@@ -47,7 +46,7 @@ const payoutMultipliers = {
     "Watermelon": 4
 };
 
-function handleWin(){
+function handleWin() {
     const payoutAmount = payoutMultipliers[reels[0].getAttribute("src").replace("images/", "").replace(".png", "")] * bet;
     balance += payoutAmount;
 
@@ -57,13 +56,15 @@ function handleWin(){
     hideWinLoseStatus();
 }
 
-function spin(){
+const hideWinLoseStatus = () => setTimeout( () => winLoseStatus.style.display = "none", 3000);
+
+function spin() {
     if((balance - bet) < 0) {
         displayMessage("You do not have a sufficient balance to place this bet!");
         return
     }
 
-    balance -= bet
+    balance -= bet;
     const spunReels = [spinReel(reels[0]), spinReel(reels[1]), spinReel(reels[2])];
     const winning = spunReels[0] == spunReels[1] && spunReels[0] == spunReels[2];
 
@@ -72,10 +73,10 @@ function spin(){
     } else {
         handleLose();
     }
-    updateBalance()
+    updateBalance();
 }    
 
-function spinReel(reel){
+function spinReel(reel) {
     const symbols = ["Cherry", "Grapes", "Lemon", "Orange", "Strawberry", "Watermelon"];
     const i = Math.floor(Math.random() * symbols.length);
 
@@ -91,10 +92,8 @@ function displayMessage(msg) {
     userMsg.textContent = msg;
     userMsg.style.display = "inline-block";
 
-    setTimeout(() => userMsg.style.display = "none", 3000)
+    setTimeout(() => userMsg.style.display = "none", 3000);
 }
-
-const hideWinLoseStatus = () => setTimeout( () => winLoseStatus.style.display = "none", 3000);
 
 decreaseBetBtn.addEventListener("click", decreaseBet);
 increaseBetBtn.addEventListener("click", increaseBet);

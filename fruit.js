@@ -12,24 +12,24 @@ let balance = 500;
 let bet = 1;
 
 // Increase bet by one token
-const increaseBet = () => {
-    if(bet < 100){
+function increaseBet() {
+    if(bet < 100) {
         bet += 1;
         betBalance.textContent = bet;
     } else {
         displayMessage("You may not bet any more tokens!");
     }
-};
+}
 
 // Decrease bet by 1 token - if bet = 1, then we cannot decrement any lower. Otherwise, it is ok.
-const decreaseBet = () => {
+function decreaseBet() {
     if(bet === 1){
         displayMessage("You may not decrease your bet any further!");
     } else {
         bet -= 1;
         betBalance.textContent = bet;
     }
-}; 
+} 
 
 function handleLose() {
     winLoseStatus.style.display = "flex";
@@ -47,6 +47,7 @@ const payoutMultipliers = {
 };
 
 function handleWin() {
+    // Use the payout multipliers object to calculate the correct payout amount
     const payoutAmount = payoutMultipliers[reels[0].getAttribute("src").replace("images/", "").replace(".png", "")] * bet;
     balance += payoutAmount;
 

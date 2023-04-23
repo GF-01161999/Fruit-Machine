@@ -17,14 +17,14 @@ function increaseBet() {
         bet += 1;
         betBalance.textContent = bet;
     } else {
-        displayMessage("You may not bet any more tokens!");
+        handleMessageDisplay("You may not bet any more tokens!");
     }
 }
 
 // Decrease bet by 1 token - if bet = 1, then we cannot decrement any lower. Otherwise, it is ok.
 function decreaseBet() {
     if(bet === 1){
-        displayMessage("You may not decrease your bet any further!");
+        handleMessageDisplay("You may not decrease your bet any further!");
     } else {
         bet -= 1;
         betBalance.textContent = bet;
@@ -59,15 +59,15 @@ function handleWin() {
 
 const hideWinLoseStatus = () => setTimeout( () => winLoseStatus.style.display = "none", 3000);
 
-function spin() {
+function handleSpin() {
     if((balance - bet) < 0) {
-        displayMessage("You do not have a sufficient balance to place this bet!");
-        return
+        handleMessageDisplay("You do not have a sufficient balance to place this bet!");
+        return;
     }
 
     balance -= bet;
     const spunReels = [spinReel(reels[0]), spinReel(reels[1]), spinReel(reels[2])];
-    const winning = spunReels[0] == spunReels[1] && spunReels[0] == spunReels[2];
+    const winning = spunReels[0] === spunReels[1] && spunReels[0] === spunReels[2];
 
     if(winning){
         handleWin();
@@ -79,17 +79,17 @@ function spin() {
 
 function spinReel(reel) {
     const symbols = ["Cherry", "Grapes", "Lemon", "Orange", "Strawberry", "Watermelon"];
-    const i = Math.floor(Math.random() * symbols.length);
+    const randomIdx = Math.floor(Math.random() * symbols.length);
 
-    reel.src = "images/" + symbols[i] + ".png";
-    return symbols[i];
+    reel.src = "images/" + symbols[randomIdx] + ".png";
+    return symbols[randomIdx];
 }
 
 function updateBalance() {
     balanceDisplay.innerHTML = balance;
 }
 
-function displayMessage(msg) {
+function handleMessageDisplay(msg) {
     userMsg.textContent = msg;
     userMsg.style.display = "inline-block";
 
@@ -98,4 +98,4 @@ function displayMessage(msg) {
 
 decreaseBetBtn.addEventListener("click", decreaseBet);
 increaseBetBtn.addEventListener("click", increaseBet);
-spinBtn.addEventListener("click", spin);
+spinBtn.addEventListener("click", handleSpin);
